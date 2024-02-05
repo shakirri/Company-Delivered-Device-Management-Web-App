@@ -4,10 +4,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Company
+from .models import Employees
 # Create your views here.
 
 def home(request):
     return render(request,"Home.html")
+
+
+def employee_list(request):
+    employees = Employees.objects.all()
+    return render(request, 'employee_list.html', {'employees': employees})
 
 def register(request):
     form=UserCreationForm(request.POST)
@@ -26,3 +32,4 @@ def register(request):
 @login_required(login_url='login')
 def profile(request):
     return render(request, 'profile.html')
+
